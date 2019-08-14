@@ -3,3 +3,4 @@ flask-restful
 pymongo
 bcrypt
 boto3
+awscli

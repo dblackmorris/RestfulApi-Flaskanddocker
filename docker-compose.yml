@@ -5,10 +5,8 @@ services:
                 build: ./web
                 ports:
                         - "5000:5000"
-                environment: 
-                        - AWS_ACCESS_KEY_ID=
-                        - AWS_SECRET_ACCESS_KEY=
-                        - AWS_DEFAULT_REGION=
+                env_file:
+                        - .env.txt
                 links:
                         - db
         db:
