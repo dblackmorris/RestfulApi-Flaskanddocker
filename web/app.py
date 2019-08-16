@@ -110,7 +110,8 @@ class Get(Resource):
                 "status":302
             }
             return jsonify(retJson)
-
+        s3_client = boto3.client('s3')
+        list1=s3_client.list_buckets()
 
 
 
@@ -120,10 +121,10 @@ class Get(Resource):
         retJson = {
             "status":200,
             "sentence": str(sentence)
+            
         }
 
-        return jsonify(retJson)
-
+        return jsonify(list1)
 
 
 
