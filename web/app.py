@@ -13,17 +13,17 @@ users = db["Users"]
 
 class Register(Resource):
     def post(self):
-        #Step 1 is to get posted data by the user
+        
         postedData = request.get_json()
 
-        #Get the data
+        
         username = postedData["username"]
         password = postedData["password"] #"123xyz"
 
 
         hashed_pw = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
-        #Store username and pw into the database
+        
         users.insert({
             "Username": username,
             "Password": hashed_pw,
@@ -103,7 +103,7 @@ class Get(Resource):
         username = postedData["username"]
         password = postedData["password"]
 
-        #Step 3 verify the username pw match
+        
         correct_pw = verifyPw(username, password)
         if not correct_pw:
             retJson = {
@@ -111,8 +111,8 @@ class Get(Resource):
             }
             return jsonify(retJson)
         s3_client = boto3.client('s3')
-        list1=s3_client.list_buckets()
-
+        list1=str(s3_client.list_buckets())
+        
 
 
         sentence = users.find({
@@ -120,11 +120,12 @@ class Get(Resource):
         })[0]["EC2-Details"]
         retJson = {
             "status":200,
-            "sentence": str(sentence)
+            "sentence": str(sentence),
+            "list of s3": list1
             
         }
 
-        return jsonify(list1)
+        return jsonify(retJson)
 
 
 
