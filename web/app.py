@@ -120,7 +120,7 @@ class Get(Resource):
         })[0]["EC2-Details"]
         retJson = {
             "status":200,
-            "sentence": str(sentence),
+            "last bucket created by user": str(sentence),
             "list of s3": list1
             
         }
