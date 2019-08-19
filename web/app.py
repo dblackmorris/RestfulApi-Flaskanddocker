@@ -10,32 +10,50 @@ api = Api(app)
 client = MongoClient("mongodb://db:27017")
 db = client.SentencesDatabase
 users = db["Users"]
-
+def checkPostedData(postedData,functionName):
+    if (functionName=="Register" or functionName=="Get"):
+        if "username" not in postedData or "password" not in postedData:
+            return 301
+        else :
+            return 200
+    elif (functionName=="Store"):
+        if "username" not in postedData or "password" not in postedData or "ec2" not in postedData:
+            return 301
+        elif (postedData["ec2"]==""):
+            return 302
+        else :
+            return 200
 class Register(Resource):
     def post(self):
         
         postedData = request.get_json()
+        sCode=checkPostedData(postedData,"Register")
+        if sCode==200 :
+            username = postedData["username"]
+            password = postedData["password"]
+
+
+            hashed_pw = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
 
         
-        username = postedData["username"]
-        password = postedData["password"] #"123xyz"
+            users.insert({
+                "Username": username,
+                "Password": hashed_pw,
+                "EC2-Details": "",
+                "Tokens":3
+            })
 
-
-        hashed_pw = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-
-        
-        users.insert({
-            "Username": username,
-            "Password": hashed_pw,
-            "EC2-Details": "",
-            "Tokens":3
-        })
-
-        retJson = {
-            "status": 200,
-            "msg": "You successfully signed up for the API"
-        }
-        return jsonify(retJson)
+            retJson = {
+                "status": sCode,
+                "msg": "You successfully signed up for the API"
+            }
+            return jsonify(retJson)
+        else :
+            retJson = {
+                    "status": sCode,
+                    "msg": "Please enter the username and password both"
+                    }
+            return jsonify(retJson)
 
 def verifyPw(username, password):
     hashed_pw = users.find({
