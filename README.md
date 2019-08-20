@@ -3,7 +3,7 @@ Implementation of AWS Restful Api with Python Flask & BOTO3.
 
 ## How to use this
 * Install docker and docker-compose on the system.
-* Clone the Repository :
+* Clone the Repository : <br />
   **git clone https://github.com/dblackmorris/RestfulApi-Flaskanddocker**
 * Store the AWS credentials in same directory inside the .env.txt file.
 
@@ -12,5 +12,5 @@ Implementation of AWS Restful Api with Python Flask & BOTO3.
 +	AWS_SECRET_ACCESS_KEY=$$$$$$$$$$$$$$$$$$$			
 +	AWS_DEFAULT_REGION=us-east-1 					
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-* Run the docker-compose command
+* Run the docker-compose command <br />
   **docker-compose up**
