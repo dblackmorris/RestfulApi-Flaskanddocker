@@ -13,4 +13,4 @@ Implementation of AWS Restful Api with Python Flask & BOTO3.
 +	AWS_DEFAULT_REGION=us-east-1 					
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 * Run the docker-compose command
-  ** docker-compose up**
+  **docker-compose up**
